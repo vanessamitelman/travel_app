@@ -1,4 +1,5 @@
 import React from 'react';
+import {TravelContext} from '../../TravelContext'
 import {
   Box,
   Typography,

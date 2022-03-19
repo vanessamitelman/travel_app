@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { TravelContext } from '../../TravelContext';
 import GoogleMapReact from 'google-map-react';
 import { Paper, Typography, useMediaQuery } from '@material-ui/core';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
@@ -7,15 +8,19 @@ import useStyles from './styles'; //useStyles is a hook
 import mapStyles from './mapStyles';
 import LocalAirportIcon from '@material-ui/icons/LocalAirport';
 
-const Map = ({
-  setCoords,
-  setBounds,
-  coords,
-  places,
-  setChildClicked,
-  weatherData,
-  airportData
-}) => {
+const Map = () => {
+  const {
+    setCoords,
+    setBounds,
+    coords,
+    places,
+    filteredPlaces,
+    setChildClicked,
+    weatherData,
+    airportData
+  } = useContext(TravelContext);
+
+  const newPlaces = filteredPlaces.length ? filteredPlaces : places;
   const classes = useStyles();
   const isDesktop = useMediaQuery('min-width:600px');
   return (
@@ -49,7 +54,7 @@ const Map = ({
             <LocalAirportIcon fontSize='large' color='secondary' />
           </div>
         ))}
-        {places?.map((place, i) => (
+        {newPlaces?.map((place, i) => (
           <div
             key={i}
             className={classes.markerContainer}

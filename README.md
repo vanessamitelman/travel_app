@@ -7,3 +7,7 @@ I use apis from rapidAPI and google maps
 make sure to change the google places API key in the html file where google maps script in inserted.
 
 Add a .env file with the relevant API keys used in the Map.js and index.js of the API file
+
+This project was based on the video:
+https://www.youtube.com/watch?v=GDa8kZLNhJ4
+Thank you so much!!!!

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, createRef ,useContext} from 'react';
-import {TravelContext} from '../../TravelContext'
+import React, { useState, useEffect, createRef, useContext } from 'react';
+import { TravelContext } from '../../TravelContext';
 import {
   CircularProgress,
   Grid,
@@ -13,10 +13,20 @@ import PlaceDetails from '../PlaceDetails/PlaceDetails';
 import useStyles from './styles'; //useStyles is a hook
 
 const List = () => {
-  const { places, childClicked, isLoading,type,rating,setType,setRating,filteredPlaces} = useContext(TravelContext)
+  const {
+    places,
+    childClicked,
+    isLoading,
+    type,
+    rating,
+    setType,
+    setRating,
+    filteredPlaces
+  } = useContext(TravelContext);
+
   const classes = useStyles();
   const [elRefs, setElRefs] = useState([]);
-const newPlace= filteredPlaces.length ? filteredPlaces : places
+  const newPlace = filteredPlaces.length ? filteredPlaces : places;
   useEffect(() => {
     setElRefs((refs) =>
       Array(newPlace?.length)

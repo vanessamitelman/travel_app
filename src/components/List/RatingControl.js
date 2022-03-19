@@ -1,14 +1,11 @@
 import React, { useContext } from 'react';
 import { InputLabel, MenuItem, FormControl, Select } from '@material-ui/core';
 import { TravelContext } from '../../TravelContext';
-import useStyles from './styles'; //useStyles is a hook
 
 const RatingControl = () => {
-  const classes = useStyles();
-
   const { rating, setRating } = useContext(TravelContext);
   return (
-    <FormControl className={classes.formControl}>
+    <>
       <InputLabel>Rating</InputLabel>
       <Select
         value={rating}
@@ -20,7 +17,7 @@ const RatingControl = () => {
         <MenuItem value={4}>Above 4.0</MenuItem>
         <MenuItem value={4.5}>Above 4.5</MenuItem>
       </Select>
-    </FormControl>
+    </>
   );
 };
 

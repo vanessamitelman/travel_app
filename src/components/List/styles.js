@@ -16,13 +16,13 @@ export default makeStyles((theme) => ({
     alignItems: "center",
   },
   container: {
-    padding: "25px",
+    padding: "10px 15px",
   },
   marginBottom: {
     marginBottom: "30px",
   },
   list: {
-    height: "67vh",
+    height: "66vh",
     overflow: "auto",
   },
 }));

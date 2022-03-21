@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createRef, useContext } from 'react';
 import { TravelContext } from '../../TravelContext';
-import { Grid, Typography, FormControl } from '@material-ui/core';
+import { Grid, FormControl } from '@material-ui/core';
 import PlaceDetails from '../PlaceDetails/PlaceDetails';
 import useStyles from './styles'; //useStyles is a hook
 import TypeControl from './TypeControl';
@@ -14,7 +14,6 @@ const List = () => {
   const classes = useStyles();
   const [elRefs, setElRefs] = useState([]);
   const newPlace = filteredPlaces.length ? filteredPlaces : places;
-
   useEffect(() => {
     setElRefs((refs) =>
       Array(newPlace?.length)
@@ -38,7 +37,7 @@ const List = () => {
           </FormControl>
           <Grid container spacing={3} className={classes.list}>
             {places?.map((place, index) => (
-              <Grid item ref={elRefs[index]}  key={index} xs={12}>
+              <Grid item ref={elRefs[index]} key={index} xs={12}>
                 <PlaceDetails
                   selected={Number(childClicked) === index}
                   place={place}

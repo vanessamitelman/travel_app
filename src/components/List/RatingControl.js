@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { InputLabel, MenuItem, FormControl, Select } from '@material-ui/core';
+import { InputLabel, MenuItem, Select } from '@material-ui/core';
 import { TravelContext } from '../../TravelContext';
 
 const RatingControl = () => {

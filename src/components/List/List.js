@@ -1,71 +1,60 @@
-import React, { useState, useEffect, createRef } from 'react';
-import {
-  CircularProgress,
-  Grid,
-  Typography,
-  InputLabel,
-  MenuItem,
-  FormControl,
-  Select
-} from '@material-ui/core';
+import React, { useState, useEffect, createRef, useContext } from 'react';
+import { TravelContext } from '../../TravelContext';
+import { Grid, FormControl } from '@material-ui/core';
 import PlaceDetails from '../PlaceDetails/PlaceDetails';
 import useStyles from './styles'; //useStyles is a hook
+import TypeControl from './TypeControl';
+import RatingControl from './RatingControl';
+import Progress from './Progress';
+import ListTitle from './ListTitle';
 
-const List = ({ places, childClicked, isLoading,type,rating,setType,setRating}) => {
+const List = () => {
+  const { places, childClicked, isLoading, filteredPlaces } =
+    useContext(TravelContext);
   const classes = useStyles();
   const [elRefs, setElRefs] = useState([]);
-
+  const newPlace = filteredPlaces.length ? filteredPlaces : places;
   useEffect(() => {
     setElRefs((refs) =>
-      Array(places?.length)
+      Array(newPlace?.length)
         .fill()
         .map((_, i) => refs[i] || createRef())
     );
-  }, [places]);
+  }, [newPlace]);
 
   return (
     <div className={classes.container}>
-      <Typography variant='h4'>
-        Restaurants, Hotels & Attractions around you
-      </Typography>
+      <ListTitle />
       {isLoading ? (
-        <div className={classes.loading}>
-          <CircularProgress size='5rem' />
-        </div>
+        <Progress />
       ) : (
         <>
-          <FormControl className={classes.formControl}>
-            <InputLabel>Type</InputLabel>
-            <Select value={type} onChange={(e) => setType(e.target.value)}>
-              <MenuItem value='restaurants'>Restaurants</MenuItem>
-              <MenuItem value='hotels'>Hotels</MenuItem>
-              <MenuItem value='attractions'>Attractions</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl className={classes.formControl}>
-            <InputLabel>Rating</InputLabel>
-            <Select
-              value={rating}
-              onChange={(e) => setRating(e.target.value)}
-              style={{ width: '100px' }}
-            >
-              <MenuItem value={0}>All</MenuItem>
-              <MenuItem value={3}>Above 3.0</MenuItem>
-              <MenuItem value={4}>Above 4.0</MenuItem>
-              <MenuItem value={4.5}>Above 4.5</MenuItem>
-            </Select>
-          </FormControl>
-          <Grid container spacing={3} className={classes.list}>
-            {places?.map((place, index) => (
-              <Grid ref={elRefs[index]} item key={index} xs={12}>
-                <PlaceDetails
-                  selected={Number(childClicked) === index}
-                  place={place}
-                  refProp={elRefs[index]}
-                />
+          {!places.length && (
+            <div>
+              <h2 style={{color:'#3f51b5',paddingTop:'15px'}}>No Places Found in this Region</h2>
+            </div>
+          )}
+          {places.length > 0 && (
+            <>
+              <FormControl className={classes.formControl}>
+                <TypeControl />
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <RatingControl />
+              </FormControl>
+              <Grid container spacing={3} className={classes.list}>
+                {places?.map((place, index) => (
+                  <Grid item ref={elRefs[index]} key={index} xs={12}>
+                    <PlaceDetails
+                      selected={Number(childClicked) === index}
+                      place={place}
+                      refProp={elRefs[index]}
+                    />
+                  </Grid>
+                ))}
               </Grid>
-            ))}
-          </Grid>
+            </>
+          )}
         </>
       )}
     </div>

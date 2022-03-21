@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { TravelContext } from '../../TravelContext';
 import { Autocomplete } from '@react-google-maps/api';
-import { AppBar, Toolbar, Typography, InputBase, Box } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+import { AppBar, Toolbar, Box } from '@material-ui/core';
 import useStyles from './styles'; //useStyles is a hook
+import AutocompleteField from './AutocompleteField';
+import HeaderTitle from './HeaderTitle';
+import SearchHeader from './SearchHeader';
 
-const Header = ({ setCoords }) => {
+const Header = () => {
   const classes = useStyles();
+  const { setCoords } = useContext(TravelContext);
   const [autocomplete, setAutocomplete] = useState(null);
-
   const onLoad = (autoC) => setAutocomplete(autoC);
 
   const onPlaceChanged = () => {
@@ -19,27 +22,11 @@ const Header = ({ setCoords }) => {
   return (
     <AppBar position='static'>
       <Toolbar className={classes.toolbar}>
-        <Typography variant='h5' className={classes.title}>
-          Travel Advisor
-        </Typography>
+        <HeaderTitle />
         <Box display='flex'>
-          <Typography variant='h6' className={classes.title}>
-            Explore new places
-          </Typography>
-          <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged} >
-            <div className={classes.search}>
-              <div className={classes.icon}>
-                <div style={{ position: 'absolute', top: '4px' }}>
-                  <SearchIcon />
-                </div>
-
-                <InputBase
-                  placeholder='Search...'
-                  classes={{ root: classes.root, input: classes.input }}
-                  style={{ paddingLeft: '28px' }}
-                />
-              </div>
-            </div>
+          <SearchHeader />
+          <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+            <AutocompleteField />
           </Autocomplete>
         </Box>
       </Toolbar>

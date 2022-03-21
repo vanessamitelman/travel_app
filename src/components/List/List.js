@@ -29,23 +29,32 @@ const List = () => {
         <Progress />
       ) : (
         <>
-          <FormControl className={classes.formControl}>
-            <TypeControl />
-          </FormControl>
-          <FormControl className={classes.formControl}>
-            <RatingControl />
-          </FormControl>
-          <Grid container spacing={3} className={classes.list}>
-            {places?.map((place, index) => (
-              <Grid item ref={elRefs[index]} key={index} xs={12}>
-                <PlaceDetails
-                  selected={Number(childClicked) === index}
-                  place={place}
-                  refProp={elRefs[index]}
-                />
+          {!places.length && (
+            <div>
+              <h2 style={{color:'#3f51b5',paddingTop:'15px'}}>No Places Found in this Region</h2>
+            </div>
+          )}
+          {places.length > 0 && (
+            <>
+              <FormControl className={classes.formControl}>
+                <TypeControl />
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <RatingControl />
+              </FormControl>
+              <Grid container spacing={3} className={classes.list}>
+                {places?.map((place, index) => (
+                  <Grid item ref={elRefs[index]} key={index} xs={12}>
+                    <PlaceDetails
+                      selected={Number(childClicked) === index}
+                      place={place}
+                      refProp={elRefs[index]}
+                    />
+                  </Grid>
+                ))}
               </Grid>
-            ))}
-          </Grid>
+            </>
+          )}
         </>
       )}
     </div>

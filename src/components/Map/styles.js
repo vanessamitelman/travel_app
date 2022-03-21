@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(() => ({
   paper: {
-    padding: '10px',
+    padding: '5px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',

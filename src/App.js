@@ -74,6 +74,7 @@ const App = () => {
           />
         </Grid>
       </Grid>
+      <Grid container spacing={3} style={{ width: '100%',margin:'5px' }}><Grid item >Created by Vanessa Mitelman</Grid></Grid>
     </>
   );
 };
